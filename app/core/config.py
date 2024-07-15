@@ -1,4 +1,4 @@
-# app/config.py
+# app/core/config.py
 
 import os
 from dotenv import load_dotenv
