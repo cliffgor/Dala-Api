@@ -2,6 +2,7 @@
 
 from sqlalchemy import Column, Integer, Float, DateTime, String
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
 Base = declarative_base()
 
@@ -13,5 +14,5 @@ class Booking(Base):
     route_id = Column(Integer, index=True)
     seat_number = Column(Integer)
     price = Column(Float)
-    booking_time = Column(DateTime)
+    booking_time = Column(DateTime, default=datetime.utcnow)  # Set default to current time
     status = Column(String, default="pending")

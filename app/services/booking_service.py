@@ -4,12 +4,19 @@ from sqlalchemy.orm import Session
 from app.models.booking import Booking
 from app.schemas.booking import BookingCreate
 import redis
+from datetime import datetime
 from app.core import config
 
 redis_client = redis.from_url(config.REDIS_URL)
 
 def create_booking(db: Session, booking: BookingCreate):
-    db_booking = Booking(**booking.dict())
+    db_booking = Booking(
+        user_id=booking.user_id,
+        route_id=booking.route_id,
+        seat_number=booking.seat_number,
+        price=booking.price,
+        booking_time=datetime.utcnow()  # Set booking_time to the current time
+    )
     db.add(db_booking)
     db.commit()
     db.refresh(db_booking)
